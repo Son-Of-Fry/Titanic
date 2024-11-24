@@ -1,3 +1,5 @@
 kaggle.json
 .ipynb_checkpoints
-/datos
+datos/
+mlartifacts/
+mlruns/
