@@ -1,0 +1,11 @@
+numpy
+pandas
+torch
+kaggle
+scikit-learn
+jupyterlab
+matplotlib
+seaborn
+dvc
+mlflow
+pytest

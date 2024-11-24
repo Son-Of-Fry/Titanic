@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  jupyter-cuda:
+    image: nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
+    container_name: jupyter_cuda
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "8887:8887"
+    command: >
+      /bin/bash -c "
+        apt-get update &&
+        apt-get install -y python3-pip &&
+        pip install --upgrade pip &&
+        if [ -f requirements.txt ] && [ -s requirements.txt ]; then
+          pip install -r requirements.txt || echo 'Some dependencies failed to install' >> errorsinstalls.txt;
+        else
+          echo 'requirements.txt is missing or empty!' > errorsinstalls.txt;
+        fi &&
+        jupyter-lab --ip=0.0.0.0 --port=8887 --no-browser --allow-root"
